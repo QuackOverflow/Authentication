@@ -51,7 +51,7 @@ export class AuthController {
 
     return {
       success: true,
-      data: {
+      value: {
         accessToken: result.accessToken,
         userId: result.userId,
         expiresAt: result.expiresAt,
@@ -93,7 +93,7 @@ export class AuthController {
 
     return {
       success: true,
-      data: {
+      value: {
         accessToken: loginResponse.accessToken,
         userId: loginResponse.userId,
         expiresAt: loginResponse.expiresAt,
@@ -125,7 +125,7 @@ export class AuthController {
 
     return {
       success: true,
-      data: {
+      value: {
         accessToken: result.accessToken,
         expiresAt: result.expiresAt,
       },
@@ -149,7 +149,7 @@ export class AuthController {
 
     return {
       success: true,
-      data: { message: 'Successfully logged out' },
+      value: { message: 'Successfully logged out' },
     };
   }
 }
