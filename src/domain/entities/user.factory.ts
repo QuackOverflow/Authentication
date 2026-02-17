@@ -31,7 +31,7 @@ export class UserFactory {
     password,
     role,
   }: Required<User>): User {
-    if (!id || !name || !email || !password) {
+    if (!id || !name || !email || !password || !role) {
       throw new Error('All fields are required to reconstitute a user');
     }
 
