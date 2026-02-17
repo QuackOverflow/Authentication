@@ -15,20 +15,27 @@ export class UserFactory {
     name,
     email,
     password,
-  }: Pick<User, 'email' | 'name' | 'password'>): User {
+    role = 'USER',
+  }: Pick<User, 'email' | 'name' | 'password'> & { role?: string }): User {
     if (!name || !email || !password) {
       throw new Error('All fields are required to create a user');
     }
 
-    return new User(randomUUID(), name, email, password);
+    return new User(randomUUID(), name, email, password, role);
   }
 
-  static reconstitute({ id, name, email, password }: Required<User>): User {
-    if (!id || !name || !email || !password) {
+  static reconstitute({
+    id,
+    name,
+    email,
+    password,
+    role,
+  }: Required<User>): User {
+    if (!id || !name || !email || !password || !role) {
       throw new Error('All fields are required to reconstitute a user');
     }
 
-    return new User(id, name, email, password);
+    return new User(id, name, email, password, role);
   }
 
   /**
@@ -37,10 +44,14 @@ export class UserFactory {
    * @param data - Partial data to update the user.
    * @returns The updated user.
    */
-  static update(user: User, { name, email, password }: Partial<User>): User {
+  static update(
+    user: User,
+    { name, email, password, role }: Partial<User>,
+  ): User {
     if (name) user.name = name;
     if (email) user.email = email;
     if (password) user.password = password;
+    if (role) user.role = role;
     return user;
   }
 }

@@ -11,12 +11,20 @@ export class User {
   private _name: string;
   private _email: string;
   private _password: string;
+  private _role: string;
 
-  constructor(id: string, name: string, email: string, password: string) {
+  constructor(
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+    role: string = 'USER',
+  ) {
     this._id = id;
     this._name = name;
     this._email = email;
     this._password = password;
+    this._role = role;
   }
   get id(): string {
     return this._id;
@@ -44,5 +52,13 @@ export class User {
 
   set password(password: string) {
     this._password = password;
+  }
+
+  get role(): string {
+    return this._role;
+  }
+
+  set role(role: string) {
+    this._role = role;
   }
 }

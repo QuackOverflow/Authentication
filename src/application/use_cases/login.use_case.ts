@@ -40,7 +40,7 @@ export class LoginUseCase implements IUseCase<LoginRequest, LoginResponse> {
     const jwtPayload = JwtPayload.create({
       userId: user.id,
       email: user.email,
-      roles: ['USER'], // NOTE: Not implemented but may be useful in the future
+      roles: [user.role],
     });
 
     const accessToken = await this.tokenGateway.generateAccessToken(jwtPayload);

@@ -1,8 +1,8 @@
 import { DomainException } from './domain_exception';
 
 export class UserAlreadyExistsError extends DomainException {
-  constructor(email: string) {
-    super(`User with email '${email}' already exists`);
+  constructor(identifier: string) {
+    super(`User '${identifier}' already exists`);
     this.name = 'UserAlreadyExistsError';
   }
 }

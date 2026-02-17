@@ -12,6 +12,7 @@ import { TypeOrmRefreshTokenRepository } from 'src/infrastructure/repositories/r
 import { TypeOrmUserRepository } from 'src/infrastructure/repositories/user_repository';
 import { AuthController } from 'src/presentation/controllers/auth.controller';
 import { CreateUserUseCase } from '../application/use_cases/create_user';
+import { AdminCreateUserUseCase } from '../application/use_cases/admin_create_user';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { CreateUserUseCase } from '../application/use_cases/create_user';
     JwtService,
 
     // Use cases
+    AdminCreateUserUseCase,
     CreateUserUseCase,
     LoginUseCase,
     LogoutUseCase,

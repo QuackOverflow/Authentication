@@ -13,4 +13,7 @@ export class UserEntity {
 
   @Column()
   password: string;
+
+  @Column({ default: 'USER' })
+  role: string;
 }

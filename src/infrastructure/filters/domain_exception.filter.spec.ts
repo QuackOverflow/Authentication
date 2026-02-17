@@ -76,13 +76,9 @@ describe('Domain Exception Filter', () => {
     expect(mockStatus).toHaveBeenCalledWith(HttpStatus.CONFLICT);
     expect(mockJson).toHaveBeenCalledTimes(1);
     expect(mockJson).toHaveBeenCalledWith({
-      error: {
-        code: 'USER_ALREADY_EXISTS',
-        message: `User with email 'test@email.com' already exists`,
-        path: 'fake_url/test',
-        timestamp: new Date(mockDate).toISOString(),
-      },
-      success: false,
+      message: [`User 'test@email.com' already exists`],
+      error: 'USER_ALREADY_EXISTS',
+      statusCode: HttpStatus.CONFLICT,
     });
   });
 
@@ -100,13 +96,9 @@ describe('Domain Exception Filter', () => {
     expect(mockStatus).toHaveBeenCalledWith(HttpStatus.NOT_FOUND);
     expect(mockJson).toHaveBeenCalledTimes(1);
     expect(mockJson).toHaveBeenCalledWith({
-      error: {
-        code: 'USER_NOT_FOUND',
-        message: `User with identifier '123' not found`,
-        path: 'fake_url/test',
-        timestamp: new Date(mockDate).toISOString(),
-      },
-      success: false,
+      message: [`User with identifier '123' not found`],
+      error: 'USER_NOT_FOUND',
+      statusCode: HttpStatus.NOT_FOUND,
     });
   });
 
@@ -124,13 +116,9 @@ describe('Domain Exception Filter', () => {
     expect(mockStatus).toHaveBeenCalledWith(HttpStatus.NOT_FOUND);
     expect(mockJson).toHaveBeenCalledTimes(1);
     expect(mockJson).toHaveBeenCalledWith({
-      error: {
-        code: 'USER_WITH_EMAIL_NOT_FOUND',
-        message: `User with email 'test@email.com' not found`,
-        path: 'fake_url/test',
-        timestamp: new Date(mockDate).toISOString(),
-      },
-      success: false,
+      message: [`User with email 'test@email.com' not found`],
+      error: 'USER_WITH_EMAIL_NOT_FOUND',
+      statusCode: HttpStatus.NOT_FOUND,
     });
   });
   it('Handles InvalidCredentials errors', () => {
@@ -147,13 +135,9 @@ describe('Domain Exception Filter', () => {
     expect(mockStatus).toHaveBeenCalledWith(HttpStatus.UNAUTHORIZED);
     expect(mockJson).toHaveBeenCalledTimes(1);
     expect(mockJson).toHaveBeenCalledWith({
-      error: {
-        code: 'INVALID_CREDENTIALS',
-        message: `Invalid email or password`,
-        path: 'fake_url/test',
-        timestamp: new Date(mockDate).toISOString(),
-      },
-      success: false,
+      message: [`Invalid email or password`],
+      error: 'INVALID_CREDENTIALS',
+      statusCode: HttpStatus.UNAUTHORIZED,
     });
   });
 
@@ -171,13 +155,9 @@ describe('Domain Exception Filter', () => {
     expect(mockStatus).toHaveBeenCalledWith(HttpStatus.UNPROCESSABLE_ENTITY);
     expect(mockJson).toHaveBeenCalledTimes(1);
     expect(mockJson).toHaveBeenCalledWith({
-      error: {
-        code: 'PASSWORDS_DONT_MATCH',
-        message: `Passwords do not match`,
-        path: 'fake_url/test',
-        timestamp: new Date(mockDate).toISOString(),
-      },
-      success: false,
+      message: [`Passwords do not match`],
+      error: 'PASSWORDS_DONT_MATCH',
+      statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
     });
   });
 
@@ -192,13 +172,9 @@ describe('Domain Exception Filter', () => {
     expect(mockStatus).toHaveBeenCalledWith(HttpStatus.INTERNAL_SERVER_ERROR);
     expect(mockJson).toHaveBeenCalledTimes(1);
     expect(mockJson).toHaveBeenCalledWith({
-      error: {
-        code: 'INTERNAL_ERROR',
-        message: `Internal server error`,
-        path: 'fake_url/test',
-        timestamp: new Date(mockDate).toISOString(),
-      },
-      success: false,
+      message: [`Internal server error`],
+      error: 'INTERNAL_ERROR',
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
     });
   });
 });

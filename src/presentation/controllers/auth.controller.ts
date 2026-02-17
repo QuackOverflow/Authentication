@@ -1,10 +1,14 @@
 import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { LoginRequest } from 'src/application/dtos/login_request';
+import { AdminCreateUserRequest } from 'src/application/dtos/admin_create_user_request';
 import { LoginUseCase } from 'src/application/use_cases/login.use_case';
 import { LogoutUseCase } from 'src/application/use_cases/logout.use_case';
 import { RefreshTokenUseCase } from 'src/application/use_cases/refresh_token.use_case';
+import { AdminCreateUserUseCase } from 'src/application/use_cases/admin_create_user';
 import { JwtAuthGuard } from 'src/infrastructure/guards/jwt_auth.guard';
+import { RolesGuard } from 'src/infrastructure/guards/roles.guard';
+import { Roles } from 'src/infrastructure/decorators/roles.decorator';
 import { CreateUserUseCase } from '../../application/use_cases/create_user';
 import { CreateUserRequest } from '../../application/dtos/create_user_request';
 import { InvalidTokenError } from '../../domain/exceptions/auth.exceptions';
@@ -16,6 +20,7 @@ export class AuthController {
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly logoutUseCase: LogoutUseCase,
+    private readonly adminCreateUserUseCase: AdminCreateUserUseCase,
   ) {}
 
   @Post('login')
@@ -150,6 +155,19 @@ export class AuthController {
     return {
       success: true,
       value: { message: 'Successfully logged out' },
+    };
+  }
+
+  @Post('users')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ADMIN')
+  async createUser(@Body() dto: AdminCreateUserRequest) {
+    const user = await this.adminCreateUserUseCase.execute(dto);
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
     };
   }
 }

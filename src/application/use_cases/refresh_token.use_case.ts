@@ -61,7 +61,7 @@ export class RefreshTokenUseCase
     const jwtPayload = JwtPayload.create({
       userId: user.id,
       email: user.email,
-      roles: ['USER'],
+      roles: [user.role],
     });
 
     const newAccessToken =

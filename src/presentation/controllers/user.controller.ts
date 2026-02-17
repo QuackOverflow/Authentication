@@ -9,6 +9,7 @@ import { GetUserByIdRequest } from '../../application/dtos/get_user_by_id_reques
 import { CreateUserRequest } from '../../application/dtos/create_user_request';
 import { UpdateUserRequest } from '../../application/dtos/update_user_request';
 import { DeleteUserByEmailRequest } from '../../application/dtos/delete_user_by_email_request';
+import { User } from '../../domain/entities/user.entity';
 
 @Controller('users')
 export class UserController {
@@ -31,16 +32,25 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() createUserDto: CreateUserRequest): Promise<UserEntity> {
-    return this.CreateUserUseCase.execute(createUserDto);
+  async create(
+    @Body() createUserDto: CreateUserRequest,
+  ): Promise<Omit<UserEntity, 'password'>> {
+    const user = await this.CreateUserUseCase.execute(createUserDto);
+    delete (user as Partial<User>).password;
+    return user;
   }
 
   @Post(':id')
-  update(
+  async update(
     @Param() params: { id: string },
     @Body() updateUserDto: Omit<UpdateUserRequest, 'id'>,
-  ): Promise<UserEntity | null> {
-    return this.UpdateUserUseCase.execute({ ...updateUserDto, ...params });
+  ): Promise<Omit<UserEntity, 'password'> | null> {
+    const user = await this.UpdateUserUseCase.execute({
+      ...updateUserDto,
+      ...params,
+    });
+    delete (user as Partial<User>).password;
+    return user;
   }
 
   @Delete()
