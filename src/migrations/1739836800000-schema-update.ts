@@ -16,8 +16,6 @@ export class SchemaUpdate1739836800000 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "user_entity" DROP CONSTRAINT "CHK_user_entity_role"`,
     );
-    await queryRunner.query(
-      `ALTER TABLE "user_entity" DROP COLUMN "role"`,
-    );
+    await queryRunner.query(`ALTER TABLE "user_entity" DROP COLUMN "role"`);
   }
 }
