@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -31,7 +32,7 @@ export class JwtTokenGateway implements ITokenGateway {
     const payload = {
       sub: userId,
       type: 'refresh',
-      jti: crypto.randomUUID(),
+      jti: randomUUID(),
     };
 
     const expiresAt = new Date();

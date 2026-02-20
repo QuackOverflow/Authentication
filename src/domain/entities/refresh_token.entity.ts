@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto';
+
 export class RefreshToken {
   constructor(
     private readonly _id: string,
@@ -15,7 +17,7 @@ export class RefreshToken {
     expiresAt: Date;
   }): RefreshToken {
     return new RefreshToken(
-      crypto.randomUUID(),
+      randomUUID(),
       data.userId,
       data.tokenHash,
       data.expiresAt,
