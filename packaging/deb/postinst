@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# Create system user if it doesn't exist
+if ! id -u authentication >/dev/null 2>&1; then
+  useradd --system --no-create-home --shell /usr/sbin/nologin authentication
+fi
+
+# Reload systemd, enable and restart the service
+systemctl daemon-reload
+systemctl enable authentication.service
+systemctl restart authentication.service

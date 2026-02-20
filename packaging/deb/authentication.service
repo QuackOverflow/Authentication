@@ -1,0 +1,16 @@
+[Unit]
+Description=Authentication Service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=authentication
+Group=authentication
+WorkingDirectory=/opt/authentication
+ExecStart=/usr/bin/node dist/main
+EnvironmentFile=/etc/default/authentication
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
